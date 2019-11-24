@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 
@@ -22,7 +22,7 @@ const App = () => (
       <Route exact path="/search/:userInput" component={SearchBar} />
       <Route exact path="/:id/album" component={SelectedArtist} />
       <Route exact path="/:id/tracks" component={SelectedAlbum} />
-      <Route path="" component={Home} />
+      <Route exact path="/" component={Home} />
     </Switch>
   </BrowserRouter>
 )
