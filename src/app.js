@@ -22,7 +22,7 @@ const App = () => (
       <Route exact path="/search/:userInput" component={SearchBar} />
       <Route exact path="/:id/album" component={SelectedArtist} />
       <Route exact path="/:id/tracks" component={SelectedAlbum} />
-      <Route exact path="/" component={Home} />
+      <Route exact path="/riada125.github.io/Project-2/" component={Home} />
     </Switch>
   </BrowserRouter>
 )
