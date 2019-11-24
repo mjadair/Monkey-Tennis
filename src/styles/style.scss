@@ -1,0 +1,101 @@
+html{
+  background-color: black;
+}
+
+
+
+.columns {
+  background-color: black;
+  border: 1px solid black;
+}
+
+
+.column{
+  margin: 0;
+  padding: 0;
+}
+
+.navbar{
+  background-color:whitesmoke;
+  border-top:10px solid black;
+  border-bottom: 5px solid black;;
+  box-shadow: 0 0 20px 0 whitesmoke;
+}
+
+
+.navbar-item{
+  font-size: 2rem;
+  font-family: 'Megrim', cursive;
+  font-weight: bolder;
+  color: black;
+}
+
+
+div.hero-body {
+  background-image: url('../img/joao-victor-alves-de-bastos-XePA2ecP5Vc-unsplash.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-color: black;
+}
+
+
+p{
+ font-family: 'Carter One', cursive;
+}
+
+.subtitle{
+  font-family: 'Carter One', cursive;
+  color: white;
+
+}
+
+
+p.title.is-1.has-text-right {
+color: whitesmoke;
+}
+
+
+
+
+
+
+
+img {
+  transition: all .2s ease-in-out; 
+  -webkit-animation: fadein 2s; 
+  -moz-animation: fadein 2s; 
+   -ms-animation: fadein 2s; 
+    -o-animation: fadein 2s; 
+       animation: fadein 2s;
+}
+
+@keyframes fadein {
+from { opacity: 0; }
+to   { opacity: 1; }
+}
+
+
+@-webkit-keyframes fadein {
+from { opacity: 0; }
+to   { opacity: 1; }
+}
+
+
+img:hover { transform: scale(.9); }
+
+
+
+
+
+
+.audioplayback{
+  margin: 25% 10% 0 0;
+}
+
+@media (max-width: 795px) {
+
+  .audioplayback{
+    margin: 0;
+  }
+
+}
