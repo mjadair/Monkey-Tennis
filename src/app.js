@@ -14,15 +14,15 @@ import 'bulma'
 import './styles/style.scss'
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/Project-2">
     <Navbar />
     <Switch>
-      <Route exact path="/Home" component={Home} />
-      <Route exact path="/Charts" component={Tracks} />
-      <Route exact path="/search/:userInput" component={SearchBar} />
-      <Route exact path="/:id/album" component={SelectedArtist} />
-      <Route exact path="/:id/tracks" component={SelectedAlbum} />
-      <Route exact path="/riada125.github.io/Project-2/" component={Home} />
+      <Route exact path="#/Home" component={Home} />
+      <Route exact path="#/Charts" component={Tracks} />
+      <Route exact path="#/search/:userInput" component={SearchBar} />
+      <Route exact path="#/:id/album" component={SelectedArtist} />
+      <Route exact path="#/:id/tracks" component={SelectedAlbum} />
+      <Route exact path="#/" component={Home} />
     </Switch>
   </BrowserRouter>
 )
