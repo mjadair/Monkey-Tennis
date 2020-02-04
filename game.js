@@ -1,10 +1,19 @@
 function preload() {
-
+  this.load.image('banana', '../assets/fruit_banana.png')
 }
 
 
 const gameState = {}
 function create() {
+
+
+  gameState.bananas = this.physics.add.group()
+
+  for (let yVal = 1; yVal < 6; yVal++) {
+    for (let xVal = 1; xVal < 20; xVal++) {
+      gameState.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setGravityY(-200)
+    }
+  }
 
   // When gameState.active is true, the game is being played and not over. When gameState.active is false, then it's game over
   gameState.active = true
@@ -53,7 +62,7 @@ function update() {
 
 
 
-} 
+}
 
 
 const config = {
