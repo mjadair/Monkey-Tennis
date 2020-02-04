@@ -53,7 +53,7 @@ function update() {
 
 
 
-}
+} 
 
 
 const config = {
