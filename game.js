@@ -1,19 +1,33 @@
 function preload() {
   this.load.image('banana', '../assets/fruit_banana.png')
+  this.load.image('monkey', '../assets/monkey.png')
 }
 
 
 const gameState = {}
 function create() {
 
+  //  Enable world bounds, but disable the floor
+  this.physics.world.setBoundsCollision(true, true, true, false)
+
 
   gameState.bananas = this.physics.add.group()
 
   for (let yVal = 1; yVal < 6; yVal++) {
-    for (let xVal = 1; xVal < 20; xVal++) {
-      gameState.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setGravityY(-200)
+    for (let xVal = 1; xVal < 29; xVal++) {
+      gameState.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
     }
   }
+
+
+  // creates a 'paddle monkey'
+  this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
+
+
+  this.ball = this.physics.add.circle(400, 500).setCollideWorldBounds(true).setBounce(1);
+  this.ball.setData('onPaddle', true)
+
+
 
   // When gameState.active is true, the game is being played and not over. When gameState.active is false, then it's game over
   gameState.active = true
@@ -24,6 +38,12 @@ function create() {
       this.scene.restart()
     }
   })
+
+
+
+
+
+
 
   // Creating static platforms
   // const platforms = this.physics.add.staticGroup();
@@ -71,11 +91,7 @@ const config = {
   height: window.innerHeight,
   backgroundColor: "b9eaff",
   physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 200 },
-      enableBody: true,
-    }
+    default: 'arcade'
   },
   scene: {
     preload,
