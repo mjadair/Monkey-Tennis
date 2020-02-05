@@ -27,9 +27,7 @@ function create() {
   this.ball.setData('onmonkey', true)
 
 
-  //  Colliders
-  this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
-  this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
+
 
   //  Input events
   this.input.on('pointermove', function (pointer) {
@@ -51,6 +49,8 @@ function create() {
     }
 
   }, this)
+
+
 
   function hitBanana(ball, banana) {
     banana.disableBody(true, true)
@@ -93,6 +93,10 @@ function create() {
       ball.setVelocityX(2 + Math.random() * 8)
     }
   }
+
+  //  Colliders
+  this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
+  this.physics.add.collider(this.ball, this.monkey, this.hitmonkey, null, this)
 }
 
 
