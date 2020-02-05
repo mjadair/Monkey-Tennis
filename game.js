@@ -1,84 +1,111 @@
 function preload() {
   this.load.image('banana', '../assets/fruit_banana.png')
   this.load.image('monkey', '../assets/monkey.png')
+  this.load.image('tennisball', '../assets/tennisball.png')
 }
 
 
 const gameState = {}
 function create() {
 
-  //  Enable world bounds, but disable the floor
+  //  Sets boundaries for ceiling and walls, but disables the floor
   this.physics.world.setBoundsCollision(true, true, true, false)
 
-
+  // adds target bananas
   gameState.bananas = this.physics.add.group()
-
   for (let yVal = 1; yVal < 6; yVal++) {
     for (let xVal = 1; xVal < 29; xVal++) {
       gameState.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
     }
   }
 
-
-  // creates a 'paddle monkey'
+  // creates a 'monkey monkey'
   this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
 
+  //adds a tennis ball
+  this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
+  this.ball.setData('onmonkey', true)
 
-  this.ball = this.physics.add.circle(400, 500).setCollideWorldBounds(true).setBounce(1);
-  this.ball.setData('onPaddle', true)
 
+  //  Colliders
+  this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
+  this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 
+  //  Input events
+  this.input.on('pointermove', function (pointer) {
 
-  // When gameState.active is true, the game is being played and not over. When gameState.active is false, then it's game over
-  gameState.active = true
+    //  Keep the monkey within the game
+    this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, 900)
 
-  // When gameState.active is false, the game will listen for a click event and restart when the event happens
-  this.input.on('pointerup', () => {
-    if (gameState.active === false) {
-      this.scene.restart()
+    if (this.ball.getData('onmonkey')) {
+      this.ball.x = this.monkey.x
     }
-  })
 
+  }, this)
 
+  this.input.on('pointerup', function (pointer) {
 
+    if (this.ball.getData('onmonkey')) {
+      this.ball.setVelocity(-75, -300)
+      this.ball.setData('onmonkey', false)
+    }
 
+  }, this)
 
+  function hitBanana(ball, banana) {
+    banana.disableBody(true, true)
 
+    if (this.bananas.countActive() === 0) {
+      this.resetLevel()
+    }
+  }
 
-  // Creating static platforms
-  // const platforms = this.physics.add.staticGroup();
-  // platforms.create(225, 490, 'platform').setScale(1, .3).refreshBody()
+  function resetBall() {
+    this.ball.setVelocity(0)
+    this.ball.setPosition(this.monkey.x, 500)
+    this.ball.setData('onmonkey', true)
+  }
 
-  // Displays score?
+  function resetLevel() {
+    this.resetBall()
 
-  // Uses the physics plugin to create paddle
-  // gameState.player = this.physics.add
+    this.bananas.children.each(function (banana) {
 
-  // Create Collider objects
-  // gameState.player.setCollideWorldBounds(true)
-  // this.physics.add.collider(gameState.player, platforms)
+      banana.enableBody(false, 0, 0, true, true)
 
-  // Creates cursor objects to be used in update()
-  gameState.cursors = this.input.keyboard.createCursorKeys()
+    })
+  }
 
+  function hitMonkey(ball, monkey) {
+    var diff = 0
 
-
-  // this.physics.add.collider(gameState.enemies, gameState.player, () => {
-  //   gameState.active = false,
-  //   this.add.text(210, 250, 'Game Over \n Click to restart', { fontSize: '15px', fill: '#000' });
-  // })
-
+    if (ball.x < monkey.x) {
+      //  Ball is on the left-hand side of the monkey
+      diff = monkey.x - ball.x
+      ball.setVelocityX(-10 * diff)
+    } else if (ball.x > monkey.x) {
+      //  Ball is on the right-hand side of the monkey
+      diff = ball.x - monkey.x
+      ball.setVelocityX(10 * diff)
+    } else {
+      //  Ball is perfectly in the middle
+      //  Add a little random X to stop it bouncing straight up!
+      ball.setVelocityX(2 + Math.random() * 8)
+    }
+  }
 }
+
+
+
+
+
+
 
 function update() {
 
-  // if (gameState.cursors.left.isDown) {
-  //   gameState.player.setVelocityX(-160)
-  // } else if (gameState.cursors.right.isDown) {
-  //   gameState.player.setVelocityX(160)
-  // } else {
-  //   gameState.player.setVelocityX(0)
-  // }
+  if (this.ball.y > 1000) {
+    this.resetBall()
+  }
 
 
 
