@@ -13,7 +13,7 @@ function create() {
   this.bananas = this.physics.add.group()
   for (let yVal = 2; yVal < 6; yVal++) {
     for (let xVal = 1; xVal < 15; xVal++) {
-      this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
+      this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setImmovable()
     }
   }
 
@@ -56,23 +56,8 @@ function create() {
 
 
   function hitBanana(ball, banana) {
-    banana.destroy(true, true)
-    ball.setVelocity(75, 300)
-    let diff = 0
-    if (ball.x < banana.x) {
-      //  Ball is on the left-hand side of the monkey
-      diff = banana.x - ball.x
-      ball.setVelocityX(-10 * diff)
-    } else if (ball.x > banana.x) {
-      //  Ball is on the right-hand side of the monkey
-      diff = ball.x - banana.x
-      ball.setVelocityX(10 * diff)
-    } else {
-      //  Ball is perfectly in the middle
-      //  Add a random element to the bounce
-      ball.setVelocityX(2 + Math.random() * 8)
-    }
-
+    this.bananas.destroy(banana, true)
+    
     if (this.bananas.countActive() === 0) {
       this.resetLevel()
     }
