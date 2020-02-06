@@ -12,10 +12,10 @@ function create() {
   this.physics.world.setBoundsCollision(true, true, true, false)
 
   // adds target bananas
-  gameState.bananas = this.physics.add.group()
+  this.bananas = this.physics.add.staticGroup()
   for (let yVal = 1; yVal < 6; yVal++) {
     for (let xVal = 1; xVal < 29; xVal++) {
-      gameState.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
+      this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
     }
   }
 
@@ -23,7 +23,7 @@ function create() {
   this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
 
   //adds a tennis ball
-  this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
+  this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1)
   this.ball.setData('onMonkey', true)
 
 
@@ -53,7 +53,8 @@ function create() {
 
 
   function hitBanana(ball, banana) {
-    banana.disableBody(true, true)
+    debugger
+    banana.destroy(true, true)
 
     if (this.bananas.countActive() === 0) {
       this.resetLevel()
@@ -85,7 +86,7 @@ function create() {
       ball.setVelocityX(10 * diff)
     } else {
       //  Ball is perfectly in the middle
-      //  Add a little random X to stop it bouncing straight up!
+      //  Add a random element to the bounce
       ball.setVelocityX(2 + Math.random() * 8)
     }
   }
@@ -94,7 +95,7 @@ function create() {
 
   //  Colliders
   this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
-  this.physics.add.collider(this.ball, this.monkey, this.hitmonkey, null, this)
+  this.physics.add.collider(this.ball, this.monkey, this.hitMonkey,null, this)
 }
 
 
