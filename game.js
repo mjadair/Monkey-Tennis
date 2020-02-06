@@ -4,20 +4,23 @@ function preload() {
   this.load.image('tennisball', '../assets/tennisball.png')
 }
 
-
-const gameState = {}
 function create() {
 
   //  Sets boundaries for ceiling and walls, but disables the floor
   this.physics.world.setBoundsCollision(true, true, true, false)
 
   // adds target bananas
-  this.bananas = this.physics.add.staticGroup()
-  for (let yVal = 1; yVal < 6; yVal++) {
-    for (let xVal = 1; xVal < 29; xVal++) {
+  this.bananas = this.physics.add.group()
+  for (let yVal = 2; yVal < 6; yVal++) {
+    for (let xVal = 1; xVal < 15; xVal++) {
       this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1)
     }
   }
+
+ 
+
+
+
 
   // creates a 'paddle monkey'
   this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
@@ -53,8 +56,22 @@ function create() {
 
 
   function hitBanana(ball, banana) {
-    debugger
     banana.destroy(true, true)
+    ball.setVelocity(75, 300)
+    let diff = 0
+    if (ball.x < banana.x) {
+      //  Ball is on the left-hand side of the monkey
+      diff = banana.x - ball.x
+      ball.setVelocityX(-10 * diff)
+    } else if (ball.x > banana.x) {
+      //  Ball is on the right-hand side of the monkey
+      diff = ball.x - banana.x
+      ball.setVelocityX(10 * diff)
+    } else {
+      //  Ball is perfectly in the middle
+      //  Add a random element to the bounce
+      ball.setVelocityX(2 + Math.random() * 8)
+    }
 
     if (this.bananas.countActive() === 0) {
       this.resetLevel()
@@ -74,7 +91,7 @@ function create() {
   }
 
   function hitMonkey(ball, monkey) {
-    var diff = 0
+    let diff = 0
 
     if (ball.x < monkey.x) {
       //  Ball is on the left-hand side of the monkey
@@ -93,7 +110,7 @@ function create() {
 
 
 
-  //  Colliders
+  //  Colliderss
   this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey,null, this)
 }
