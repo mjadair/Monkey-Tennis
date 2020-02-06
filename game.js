@@ -17,7 +17,7 @@ function create() {
     }
   }
 
- 
+
 
 
 
@@ -44,6 +44,7 @@ function create() {
 
   }, this)
 
+  //starts the game on click
   this.input.on('pointerup', function (pointer) {
 
     if (this.ball.getData('onMonkey')) {
@@ -54,30 +55,22 @@ function create() {
   }, this)
 
 
-
-  // function hitBanana(ball, banana) {
-  //   this.bananas.destroy(banana, true)
-    
-  //   if (this.bananas.countActive() === 0) {
-  //     this.resetLevel()
-  //   }
-  // }
-
-
-    
-  this.physics.add.collider(this.ball, this.bananas, (ball, banana) =>{
+  //collider effect for when the ball hits a banana
+  this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
+
+    if (this.bananas.countActive() === 0) {
+      resetLevel()
+    }
   })
 
 
-    
-  // this.physics.add.collider(gameState.enemies, gameState.bugRepellent, (bug, repellent) =>{
-  //   bug.destroy()
 
-
-
+// should reset level - but need to add ball to gameState
   function resetLevel() {
-    resetBall()
+    this.ball.setVelocity(0)
+    this.ball.setPosition(this.monkey.x, 675)
+    this.ball.setData('onMonkey', true)
 
     this.bananas.children.each(function (banana) {
 
@@ -86,15 +79,17 @@ function create() {
     })
   }
 
+
+  //logic for when the ball hits the paddle monkey
   function hitMonkey(ball, monkey) {
     let diff = 0
 
     if (ball.x < monkey.x) {
-      //  Ball is on the left-hand side of the monkey
+      // For when the ball is on the left-hand side of the monkey
       diff = monkey.x - ball.x
       ball.setVelocityX(-10 * diff)
     } else if (ball.x > monkey.x) {
-      //  Ball is on the right-hand side of the monkey
+      //  For when the ball is on the right-hand side of the monkey
       diff = ball.x - monkey.x
       ball.setVelocityX(10 * diff)
     } else {
@@ -106,13 +101,12 @@ function create() {
 
 
 
-  //  Colliderss
-  // this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
-  this.physics.add.collider(this.ball, this.monkey, this.hitMonkey,null, this)
+  //  Collider for when the ball hits the paddle monkey
+  this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 }
 
 
-
+// returns the ball to the paddle monkey if dropped
 function update() {
   if (this.ball.y > 1000) {
     this.ball.setVelocity(0)
