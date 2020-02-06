@@ -55,13 +55,24 @@ function create() {
 
 
 
-  function hitBanana(ball, banana) {
-    this.bananas.destroy(banana, true)
+  // function hitBanana(ball, banana) {
+  //   this.bananas.destroy(banana, true)
     
-    if (this.bananas.countActive() === 0) {
-      this.resetLevel()
-    }
-  }
+  //   if (this.bananas.countActive() === 0) {
+  //     this.resetLevel()
+  //   }
+  // }
+
+
+    
+  this.physics.add.collider(this.ball, this.bananas, (ball, banana) =>{
+    banana.destroy()
+  })
+
+
+    
+  // this.physics.add.collider(gameState.enemies, gameState.bugRepellent, (bug, repellent) =>{
+  //   bug.destroy()
 
 
 
@@ -96,7 +107,7 @@ function create() {
 
 
   //  Colliderss
-  this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
+  // this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey,null, this)
 }
 
