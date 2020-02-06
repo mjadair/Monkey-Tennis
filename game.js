@@ -17,13 +17,10 @@ function create() {
     }
   }
 
-
-
-
-
+  console.log(window.innerHeight)
 
   // creates a 'paddle monkey'
-  this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
+  this.monkey = this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable()
 
   //adds a tennis ball
   this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1)
@@ -116,8 +113,6 @@ function update() {
 
 }
 
-
-
 const config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
@@ -132,6 +127,5 @@ const config = {
     update
   }
 }
-
 
 const game = new Phaser.Game(config)
