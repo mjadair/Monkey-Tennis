@@ -19,12 +19,12 @@ function create() {
     }
   }
 
-  // creates a 'monkey monkey'
+  // creates a 'paddle monkey'
   this.monkey = this.physics.add.image(700, 750, 'monkey').setScale(.3).setImmovable()
 
   //adds a tennis ball
   this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
-  this.ball.setData('onmonkey', true)
+  this.ball.setData('onMonkey', true)
 
 
 
@@ -35,7 +35,7 @@ function create() {
     //  Keep the monkey within the game
     this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, 900)
 
-    if (this.ball.getData('onmonkey')) {
+    if (this.ball.getData('onMonkey')) {
       this.ball.x = this.monkey.x
     }
 
@@ -43,9 +43,9 @@ function create() {
 
   this.input.on('pointerup', function (pointer) {
 
-    if (this.ball.getData('onmonkey')) {
+    if (this.ball.getData('onMonkey')) {
       this.ball.setVelocity(-75, -300)
-      this.ball.setData('onmonkey', false)
+      this.ball.setData('onMonkey', false)
     }
 
   }, this)
@@ -60,14 +60,10 @@ function create() {
     }
   }
 
-  function resetBall() {
-    this.ball.setVelocity(0)
-    this.ball.setPosition(this.monkey.x, 500)
-    this.ball.setData('onmonkey', true)
-  }
+
 
   function resetLevel() {
-    this.resetBall()
+    resetBall()
 
     this.bananas.children.each(function (banana) {
 
@@ -94,6 +90,8 @@ function create() {
     }
   }
 
+
+
   //  Colliders
   this.physics.add.collider(this.ball, this.bananas, this.hitBanana, null, this)
   this.physics.add.collider(this.ball, this.monkey, this.hitmonkey, null, this)
@@ -101,19 +99,15 @@ function create() {
 
 
 
-
-
-
-
 function update() {
-
   if (this.ball.y > 1000) {
-    this.resetBall()
+    this.ball.setVelocity(0)
+    this.ball.setPosition(this.monkey.x, 675)
+    this.ball.setData('onMonkey', true)
   }
 
-
-
 }
+
 
 
 const config = {
