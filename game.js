@@ -11,22 +11,21 @@ function create() {
 
   // adds target bananas
   this.bananas = this.physics.add.group()
-  for (let yVal = 2; yVal < 6; yVal++) {
-    for (let xVal = 1; xVal < 15; xVal++) {
+  for (let yVal = 3; yVal < 8; yVal++) {
+    for (let xVal = 2; xVal < (Math.floor(window.innerWidth / 51)); xVal++) {
       this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setImmovable()
     }
   }
 
-  console.log(window.innerHeight)
+  console.log(window.innerWidth)
+  console.log(this.bananas)
 
   // creates a 'paddle monkey'
   this.monkey = this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable()
 
   //adds a tennis ball
-  this.ball = this.physics.add.image(700, 650, 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1)
+  this.ball = this.physics.add.image(700, (window.innerHeight - 160), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1)
   this.ball.setData('onMonkey', true)
-
-
 
 
   //  Input events
@@ -63,10 +62,10 @@ function create() {
 
 
 
-// should reset level - but need to add ball to gameState
+  // should reset level - but need to add ball to gameState
   function resetLevel() {
     this.ball.setVelocity(0)
-    this.ball.setPosition(this.monkey.x, 675)
+    this.ball.setPosition(this.monkey.x, (window.innerHeight - 160))
     this.ball.setData('onMonkey', true)
 
     this.bananas.children.each(function (banana) {
@@ -105,9 +104,9 @@ function create() {
 
 // returns the ball to the paddle monkey if dropped
 function update() {
-  if (this.ball.y > 1000) {
+  if (this.ball.y > window.innerHeight) {
     this.ball.setVelocity(0)
-    this.ball.setPosition(this.monkey.x, 675)
+    this.ball.setPosition(this.monkey.x, (window.innerHeight - 160))
     this.ball.setData('onMonkey', true)
   }
 
