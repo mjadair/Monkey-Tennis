@@ -27,8 +27,8 @@ function create() {
     this.physics.add.image(700, (window.innerHeight - 200), 'monkey').setScale(.5).setImmovable()
 
   //adds a tennis ball
-  this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 160), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) : 
-  this.physics.add.image(700, (window.innerHeight - 360), 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
+  this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 140), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) :
+    this.physics.add.image(700, (window.innerHeight - 360), 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
   this.ball.setData('onMonkey', true)
 
 
@@ -69,7 +69,7 @@ function create() {
   // resets level
   function resetLevel() {
     this.ball.setVelocity(0)
-    this.ball.setPosition(this.monkey.x, (window.innerHeight - 160))
+    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 360))
     this.ball.setData('onMonkey', true)
 
     this.bananas.children.each(function (banana) {
