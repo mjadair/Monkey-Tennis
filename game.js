@@ -36,7 +36,7 @@ function create() {
   this.input.on('pointermove', function (pointer) {
 
     //  Keep the monkey within the game
-    this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, 900)
+    this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, window.innerWidth)
 
     if (this.ball.getData('onMonkey')) {
       this.ball.x = this.monkey.x
@@ -48,7 +48,7 @@ function create() {
   this.input.on('pointerup', function (pointer) {
 
     if (this.ball.getData('onMonkey')) {
-      this.ball.setVelocity(-75, -300)
+      this.ball.setVelocity(-200, -400)
       this.ball.setData('onMonkey', false)
     }
 
@@ -66,7 +66,7 @@ function create() {
 
 
 
-  // should reset level - but need to add ball to gameState
+  // resets level
   function resetLevel() {
     this.ball.setVelocity(0)
     this.ball.setPosition(this.monkey.x, (window.innerHeight - 160))
