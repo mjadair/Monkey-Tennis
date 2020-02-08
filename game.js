@@ -48,7 +48,7 @@ function create() {
   this.input.on('pointerup', function (pointer) {
 
     if (this.ball.getData('onMonkey')) {
-      this.ball.setVelocity(-200, -400)
+      this.ball.setVelocity(-500, -500)
       this.ball.setData('onMonkey', false)
     }
 
