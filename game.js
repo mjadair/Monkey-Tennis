@@ -2,6 +2,7 @@ function preload() {
   this.load.image('banana', 'assets/fruit_banana.png')
   this.load.image('monkey', 'assets/monkey.png')
   this.load.image('tennisball', 'assets/tennisball.png')
+  this.load.image('bananapeel', 'assets/banana_peel.png')
 }
 
 function create() {
@@ -58,6 +59,7 @@ function create() {
   //collider effect for when the ball hits a banana
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
+    this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
 
     if (this.bananas.countActive() === 0) {
       resetLevel()
@@ -93,8 +95,7 @@ function create() {
       diff = ball.x - monkey.x
       ball.setVelocityX(10 * diff)
     } else {
-      //  Ball is perfectly in the middle
-      //  Add a random element to the bounce
+      //  If the Ball is perfectly in the middle, adds a random element to the bounce
       ball.setVelocityX(2 + Math.random() * 8)
     }
   }
