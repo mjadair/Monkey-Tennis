@@ -69,7 +69,7 @@ function create() {
   // resets level
   function resetLevel() {
     this.ball.setVelocity(0)
-    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 360))
+    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
     this.ball.setData('onMonkey', true)
 
     this.bananas.children.each(function (banana) {
@@ -110,7 +110,7 @@ function create() {
 function update() {
   if (this.ball.y > window.innerHeight) {
     this.ball.setVelocity(0)
-    this.ball.setPosition(this.monkey.x, (window.innerHeight - 160))
+    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
     this.ball.setData('onMonkey', true)
   }
 
