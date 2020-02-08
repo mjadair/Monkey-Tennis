@@ -13,18 +13,22 @@ function create() {
   this.bananas = this.physics.add.group()
   for (let yVal = 3; yVal < 8; yVal++) {
     for (let xVal = 2; xVal < (Math.floor(window.innerWidth / 51)); xVal++) {
-      this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setImmovable()
+      window.innerHeight < 1000 ?
+        this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.1).setImmovable()
+        :
+        this.bananas.create(50 * xVal, 50 * yVal, 'banana').setScale(.15).setImmovable()
     }
   }
 
-  console.log(window.innerWidth)
-  console.log(this.bananas)
+  console.log(window.innerHeight)
 
   // creates a 'paddle monkey'
-  this.monkey = this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable()
+  this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
+    this.physics.add.image(700, (window.innerHeight - 200), 'monkey').setScale(.5).setImmovable()
 
   //adds a tennis ball
-  this.ball = this.physics.add.image(700, (window.innerHeight - 160), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1)
+  this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 160), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) : 
+  this.physics.add.image(700, (window.innerHeight - 360), 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
   this.ball.setData('onMonkey', true)
 
 
