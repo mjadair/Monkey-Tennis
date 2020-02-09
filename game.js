@@ -21,7 +21,7 @@ function create() {
     }
   }
 
-  console.log(this.bananas.children.size)
+  console.log(this.bananas)
 
   // creates a 'paddle monkey'
   this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
@@ -60,26 +60,11 @@ function create() {
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
     this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
-
-    if (this.bananas.countActive() === 0) {
-      resetLevel()
-    }
+    console.log(this.ball)
+    // if (this.bananas.getChildren().length <= 0) {
+    //   resetLevel(this.ball, this.monkey, this.bananas)
+    // }
   })
-
-
-
-  // resets level
-  function resetLevel() {
-    this.ball.setVelocity(0)
-    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
-    this.ball.setData('onMonkey', true)
-
-    this.bananas.children.each(function (banana) {
-
-      banana.enableBody(false, 0, 0, true, true)
-
-    })
-  }
 
 
   //logic for when the ball hits the paddle monkey
@@ -100,10 +85,14 @@ function create() {
     }
   }
 
-
-
   //  Collider for when the ball hits the paddle monkey
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
+
+
+  numOfBananas = this.bananas.getChildren().length
+
+
+
 }
 
 
@@ -114,8 +103,33 @@ function update() {
     window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
     this.ball.setData('onMonkey', true)
   }
+  let numOfBananas = this.bananas.getChildren().length
+  if (numOfBananas <= 0) {
+    this.ball.setVelocity(0)
+    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
+    this.ball.setData('onMonkey', true)
 
+    this.bananas.children.each(function (banana) {
+
+      banana.enableBody(false, 0, 0, true, true)
+
+    })
+  }
 }
+
+
+// resets level
+// function resetLevel(ball, monkey, bananas) {
+//   ball.setVelocity(0)
+//   window.innerHeight < 1000 ? ball.setPosition(monkey.x, (window.innerHeight - 140)) : ball.setPosition(monkey.x, (window.innerHeight - 340))
+//   ball.setData('onMonkey', true)
+
+//   bananas.children.each(function (banana) {
+
+//     banana.enableBody(false, 0, 0, true, true)
+
+//   })
+// }
 
 const config = {
   type: Phaser.AUTO,
