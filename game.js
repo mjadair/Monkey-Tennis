@@ -21,7 +21,7 @@ function create() {
     }
   }
 
-  console.log(this.bananas)
+  // console.log(this.bananas)
 
   // creates a 'paddle monkey'
   this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
@@ -60,7 +60,7 @@ function create() {
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
     this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
-    console.log(this.ball)
+    // console.log(this.ball)
     // if (this.bananas.getChildren().length <= 0) {
     //   resetLevel(this.ball, this.monkey, this.bananas)
     // }
