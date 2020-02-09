@@ -88,11 +88,6 @@ function create() {
   //  Collider for when the ball hits the paddle monkey
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 
-
-  numOfBananas = this.bananas.getChildren().length
-
-
-
 }
 
 
@@ -105,15 +100,16 @@ function update() {
   }
   let numOfBananas = this.bananas.getChildren().length
   if (numOfBananas <= 0) {
-    this.ball.setVelocity(0)
-    window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
-    this.ball.setData('onMonkey', true)
+    this.scene.restart()
+    // this.ball.setVelocity(0)
+    // window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
+    // this.ball.setData('onMonkey', true)
 
-    this.bananas.children.each(function (banana) {
+    // this.bananas.children.each(function (banana) {
 
-      banana.enableBody(false, 0, 0, true, true)
+    //   banana.enableBody(false, 0, 0, true, true)
 
-    })
+    // })
   }
 }
 
