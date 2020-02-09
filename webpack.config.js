@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve('dist'),
-    publicPath: '/Project-2/'
+    publicPath: '/Nottify/'
   },
   module: {
     rules: [
