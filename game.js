@@ -21,7 +21,7 @@ function create() {
     }
   }
 
-  console.log(window.innerHeight)
+  console.log(this.bananas.children.size)
 
   // creates a 'paddle monkey'
   this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
