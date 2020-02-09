@@ -14,7 +14,7 @@ import 'bulma'
 import './styles/style.scss'
 
 const App = () => (
-  <BrowserRouter basename="/Project-2">
+  <BrowserRouter basename="/Nottify">
     <Navbar />
     <Switch>
       <Route exact path="#/Home" component={Home} />
