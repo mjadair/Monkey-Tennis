@@ -88,6 +88,11 @@ function create() {
   //  Collider for when the ball hits the paddle monkey
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 
+
+  this.add.text(175, 482, `Bananas Left: ${this.bananas.getChildren().length}`, { fontSize: '15px', fill: '#000000' });
+
+
+
 }
 
 
