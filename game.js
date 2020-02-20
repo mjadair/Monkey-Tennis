@@ -7,6 +7,12 @@ function preload() {
 
 function create() {
 
+
+  // const gameState = {
+  //   bananasLeft: this.bananas.getChildren().length
+  // }
+
+
   //  Sets boundaries for ceiling and walls, but disables the floor===============================================================================================
   this.physics.world.setBoundsCollision(true, true, true, false)
 
@@ -25,6 +31,8 @@ function create() {
   // creates a 'paddle monkey'========================================================================================================
   this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
     this.physics.add.image(700, (window.innerHeight - 200), 'monkey').setScale(.5).setImmovable()
+
+
 
   //adds a tennis ball===============================================================================================================
   this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 140), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) :
@@ -55,10 +63,14 @@ function create() {
   }, this)
 
 
+  //prints score to page=================================================================================
+  this.scoreText = this.add.text(175, 482, `Bananas Left: ${this.bananas.getChildren().length}`, { fontSize: '15px', fill: '#000000' })
+
   //collider effect for when the ball hits a banana============================================================================
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
     this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
+    this.scoreText.setText(`Bananas Left: ${this.bananas.getChildren().length}`)
 
   })
 
@@ -85,7 +97,7 @@ function create() {
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 
 
-  this.add.text(175, 482, `Bananas Left: ${this.bananas.getChildren().length}`, { fontSize: '15px', fill: '#000000' });
+
 
 
 
@@ -102,9 +114,15 @@ function update() {
   // Resets the game is all the bananas are removed===============================================================================================
   let numOfBananas = this.bananas.getChildren().length
   if (numOfBananas <= 0) {
-    this.scene.restart()
+    setTimeout(() => {
+      this.scene.restart()
+    }, 1300 )
+
   }
+
 }
+
+
 
 
 const config = {
