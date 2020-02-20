@@ -107,19 +107,6 @@ function update() {
 }
 
 
-// resets level
-// function resetLevel(ball, monkey, bananas) {
-//   ball.setVelocity(0)
-//   window.innerHeight < 1000 ? ball.setPosition(monkey.x, (window.innerHeight - 140)) : ball.setPosition(monkey.x, (window.innerHeight - 340))
-//   ball.setData('onMonkey', true)
-
-//   bananas.children.each(function (banana) {
-
-//     banana.enableBody(false, 0, 0, true, true)
-
-//   })
-// }
-
 const config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
