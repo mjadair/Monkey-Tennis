@@ -7,10 +7,10 @@ function preload() {
 
 function create() {
 
-  //  Sets boundaries for ceiling and walls, but disables the floor
+  //  Sets boundaries for ceiling and walls, but disables the floor===============================================================================================
   this.physics.world.setBoundsCollision(true, true, true, false)
 
-  // adds target bananas
+  // adds target bananas===============================================================================================
   this.bananas = this.physics.add.group()
   for (let yVal = 3; yVal < 8; yVal++) {
     for (let xVal = 2; xVal < (Math.floor(window.innerWidth / 51)); xVal++) {
@@ -21,22 +21,21 @@ function create() {
     }
   }
 
-  // console.log(this.bananas)
 
-  // creates a 'paddle monkey'
+  // creates a 'paddle monkey'========================================================================================================
   this.monkey = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 60), 'monkey').setScale(.3).setImmovable() :
     this.physics.add.image(700, (window.innerHeight - 200), 'monkey').setScale(.5).setImmovable()
 
-  //adds a tennis ball
+  //adds a tennis ball===============================================================================================================
   this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 140), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) :
     this.physics.add.image(700, (window.innerHeight - 360), 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
   this.ball.setData('onMonkey', true)
 
 
-  //  Input events
+  //  Input events===================================================================================================================
   this.input.on('pointermove', function (pointer) {
 
-    //  Keep the monkey within the game
+    //  Keep the monkey within the game===============================================================================================
     this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, window.innerWidth)
 
     if (this.ball.getData('onMonkey')) {
@@ -45,7 +44,7 @@ function create() {
 
   }, this)
 
-  //starts the game on click
+  //starts the game on click===============================================================================================
   this.input.on('pointerup', function (pointer) {
 
     if (this.ball.getData('onMonkey')) {
@@ -56,18 +55,15 @@ function create() {
   }, this)
 
 
-  //collider effect for when the ball hits a banana
+  //collider effect for when the ball hits a banana============================================================================
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
     banana.destroy()
     this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
-    // console.log(this.ball)
-    // if (this.bananas.getChildren().length <= 0) {
-    //   resetLevel(this.ball, this.monkey, this.bananas)
-    // }
+
   })
 
 
-  //logic for when the ball hits the paddle monkey
+  //logic for when the ball hits the paddle monkey===============================================================================================
   function hitMonkey(ball, monkey) {
     let diff = 0
 
@@ -85,7 +81,7 @@ function create() {
     }
   }
 
-  //  Collider for when the ball hits the paddle monkey
+  //  Collider for when the ball hits the paddle monkey===============================================================================================
   this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
 
 
@@ -96,25 +92,17 @@ function create() {
 }
 
 
-// returns the ball to the paddle monkey if dropped
+// returns the ball to the paddle monkey if dropped===============================================================================================
 function update() {
   if (this.ball.y > window.innerHeight) {
     this.ball.setVelocity(0)
     window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
     this.ball.setData('onMonkey', true)
   }
+  // Resets the game is all the bananas are removed===============================================================================================
   let numOfBananas = this.bananas.getChildren().length
   if (numOfBananas <= 0) {
     this.scene.restart()
-    // this.ball.setVelocity(0)
-    // window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
-    // this.ball.setData('onMonkey', true)
-
-    // this.bananas.children.each(function (banana) {
-
-    //   banana.enableBody(false, 0, 0, true, true)
-
-    // })
   }
 }
 
