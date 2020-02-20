@@ -64,7 +64,7 @@ function create() {
 
 
   //prints score to page=================================================================================
-  this.scoreText = this.add.text(175, 482, `Bananas Left: ${this.bananas.getChildren().length}`, { fontSize: '15px', fill: '#000000' })
+  this.scoreText = this.add.text(5, 5, `Bananas Left: ${this.bananas.getChildren().length}`, { fontSize: '15px', fill: '#000000' })
 
   //collider effect for when the ball hits a banana============================================================================
   this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
