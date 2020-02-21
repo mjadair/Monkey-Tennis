@@ -7,6 +7,7 @@ function preload() {
 
 function create() {
 
+  console.log(window.innerHeight)
 
   // const gameState = {
   //   bananasLeft: this.bananas.getChildren().length
@@ -56,7 +57,7 @@ function create() {
   this.input.on('pointerup', function (pointer) {
 
     if (this.ball.getData('onMonkey')) {
-      this.ball.setVelocity(-500, -500)
+      window.innerHeight < 1000 ? this.ball.setVelocity(-500, -500) : this.ball.setVelocity(-1200, -1200)
       this.ball.setData('onMonkey', false)
     }
 
@@ -116,7 +117,7 @@ function update() {
   if (numOfBananas <= 0) {
     setTimeout(() => {
       this.scene.restart()
-    }, 1300 )
+    }, 1300)
 
   }
 
