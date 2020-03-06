@@ -1,6 +1,6 @@
 function preload() {
   this.load.image('banana', 'assets/fruit_banana.png')
-  this.load.image('monkey', 'assets/monkey.png')
+  this.load.image('monkey', 'assets/TennisMonkey.png')
   this.load.image('tennisball', 'assets/tennisball.png')
   this.load.image('bananapeel', 'assets/banana_peel.png')
 }
