@@ -6,13 +6,15 @@ class StartScene extends Phaser.Scene {
     super({ key: 'StartScene' })
   }
 
+
+
   preload() {
     this.load.image('banana', 'assets/fruit_banana.png')
   }
 
 
   create() {
-    this.titleText = this.add.text(middleX, middleY, 'MONKEY TENNIS', { fill: '#000000', fontSize: '40px' })
+    this.titleText = this.add.text(middleX, middleY, 'MONKEY TENNIS', { fill: '#000000', fontSize: '40px', fontFamily: 'Times New Roman' })
     this.add.text(middleX + 30, middleY + 60, 'Click to Start', { fill: '#000000', fontSize: '30px' })
     this.input.on('pointerdown', () => {
       this.scene.stop('StartScene')

@@ -9,9 +9,13 @@ class GameScene extends Phaser.Scene {
     this.load.image('monkey', 'assets/TennisMonkey.png')
     this.load.image('tennisball', 'assets/tennisball.png')
     this.load.image('bananapeel', 'assets/banana_peel.png')
+    this.load.audio('monkeyhitball', 'assets/Audio/BallOnRacket.mp3')
+    this.load.audio('ballbouncing', 'assets/Audio/BallBounce2.mp3')
   }
 
   create() {
+
+    this.monkeyHittingBall = this.sound.add('monkeyhitball')
 
     //  Sets boundaries for ceiling and walls, but disables the floor===============================================================================================
     this.physics.world.setBoundsCollision(true, true, true, false)
@@ -35,7 +39,7 @@ class GameScene extends Phaser.Scene {
 
 
     //adds a tennis ball===============================================================================================================
-    this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 140), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) :
+    this.ball = window.innerHeight < 1000 ? this.physics.add.image(700, (window.innerHeight - 10), 'tennisball').setScale(.08).setCollideWorldBounds(true).setBounce(1) :
       this.physics.add.image(700, (window.innerHeight - 360), 'tennisball').setScale(.1).setCollideWorldBounds(true).setBounce(1)
     this.ball.setData('onMonkey', true)
 
@@ -60,6 +64,8 @@ class GameScene extends Phaser.Scene {
         this.ball.setData('onMonkey', false)
       }
 
+      this.sound.play('monkeyhitball')
+
     }, this)
 
 
@@ -68,6 +74,7 @@ class GameScene extends Phaser.Scene {
 
     //collider effect for when the ball hits a banana============================================================================
     this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
+      this.sound.play('ballbouncing')
       banana.destroy()
       this.physics.add.sprite(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
       this.scoreText.setText(`Bananas Left: ${this.bananas.getChildren().length}`)
@@ -76,25 +83,14 @@ class GameScene extends Phaser.Scene {
 
 
     //logic for when the ball hits the paddle monkey===============================================================================================
-    function hitMonkey(ball, monkey) {
-      let diff = 0
+    this.hitMonkey = function () {
 
-      if (ball.x < monkey.x) {
-        // For when the ball is on the left-hand side of the monkey
-        diff = monkey.x - ball.x
-        ball.setVelocityX(-10 * diff)
-      } else if (ball.x > monkey.x) {
-        //  For when the ball is on the right-hand side of the monkey
-        diff = ball.x - monkey.x
-        ball.setVelocityX(10 * diff)
-      } else {
-        //  If the Ball is perfectly in the middle, adds a random element to the bounce
-        ball.setVelocityX(2 + Math.random() * 8)
-      }
+      this.monkeyHittingBall.play('', 0, 1, true)
+
     }
 
     //  Collider for when the ball hits the paddle monkey===============================================================================================
-    this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this)
+    this.physics.add.collider(this.ball, this.monkey, this.hitMonkey, null, this, this.sound.play('monkeyhitball'))
 
   }
 
@@ -102,7 +98,7 @@ class GameScene extends Phaser.Scene {
   update() {
     if (this.ball.y > window.innerHeight) {
       this.ball.setVelocity(0)
-      window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x, (window.innerHeight - 140)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 340))
+      window.innerHeight < 1000 ? this.ball.setPosition(this.monkey.x - 50, (window.innerHeight - 150)) : this.ball.setPosition(this.monkey.x, (window.innerHeight - 360))
       this.ball.setData('onMonkey', true)
     }
     // Resets the game is all the bananas are removed===============================================================================================
