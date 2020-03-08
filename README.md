@@ -3,6 +3,8 @@
 
 ## Overview <img src= assets/tennisball.png height=20 width=20 />
 
+[Play the game here!](https://mjadair.github.io/Monkey-Tennis/)
+
 This is an ongoing project that I will be adding to sporadically. 
 
 After completing my first game, [Space Wars]((https://mjadair.github.io/Space-Wars/) ), in vanilla JavaScript I sought out frameworks that could be used to more effectively make a JavaScript game rendered in the browser. This led me to [Phaser 3](https://phaser.io/). 
@@ -54,7 +56,7 @@ class GameScene extends Phaser.Scene {
    
 ```
 
-## The Config
+### The Config
 
 Phaser requires a configuration object with certain stipulated keys in order for the game to render.
 
@@ -97,8 +99,56 @@ Below is an example of how straightforward it was to write the logic that moves 
     }, this)
 ```
 
+Below is an example of another Phaser-specific feature, collision detection. Which I used to detect collision between the ball and the bananas, removing the banana that was struck and replacing it with a banana peel that is assigned `setGravity` so that it drops directly downwards.
 
-Gravity, velocity and physics are all provided by Phaser, so I won't pore over the specific logic here. The challenge was mostly understanding the framwork, rather than writing hugely complicated logic. Do take a look at the source code if you're interested. 
+```js
+  this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
+      this.sound.play('ballbouncing')
+      banana.destroy()
+      this.physics.add.sprite(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
+      this.scoreText.setText(`Bananas Left: ${this.bananas.getChildren().length}`)
+
+    })
+```
+
+
+Gravity, velocity and physics are all provided by Phaser, so I won't pore over the specific logic for the whoke game here. The challenge was mostly understanding the framework, rather than writing hugely complicated logic. Do take a look at the source code if you're interested. 
+
+
+## Challenges <img src= assets/tennisball.png height=20 width=20 />
+- This was all about learning a simpler way of building a game using the JavaScript language that is more powerful than using plain vanilla JavaScript as per my first project. With this, the biggest challenge was to implement the framework as per Phaser's documentation. 
+
+
+
+## Successes <img src= assets/fruit_banana.png height=20 width=20 />
+
+- I'm really pleased with how I was able to make the gaming experience similar on mobile and desktop.
+
+- Understanding the framework and implementing physics was really exciting. 
+
+
+
+## Future features <img src= assets/banana_peel.png height=20 width=20 />
+
+I'm going to keep working on this game and adding features when I become more familiar with Phaser. Features I aim to add will include:
+
+- A life system, based on the player's monkey avatar dodging the dropping banana peels. The player will lose a life if they are hit by a falling banana peel.
+
+- A points system based on falling peeled bananas. Some of the falling banana peel will be replaced by a banana which the player can catch for bonus points. 
+
+- A progression system, adding extra scenes that increase the diffifulty if a player completes a level. 
+
+
+## Credits
+
+Sound effects obtained from [Zapsplat](https://www.zapsplat.com)
+
+
+
+
+
+
+### [Play the game now!](https://mjadair.github.io/Monkey-Tennis/)
 
 
 
