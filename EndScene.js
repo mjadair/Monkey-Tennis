@@ -12,7 +12,7 @@ class EndScene extends Phaser.Scene {
 
 
   create() {
-    this.titleText = this.add.text(middleX + 70, middleY, 'Game Over', { fill: '#000000', fontSize: '40px' })
+    this.add.text(middleX + 70, middleY, 'Game Over', { fill: '#000000', fontSize: '40px' })
     this.add.text(middleX + 30, middleY + 60, 'Click to Play Again!', { fill: '#000000', fontSize: '30px' })
     this.input.on('pointerdown', () => {
       this.scene.stop('EndScene')

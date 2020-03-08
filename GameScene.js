@@ -69,7 +69,7 @@ class GameScene extends Phaser.Scene {
     //collider effect for when the ball hits a banana============================================================================
     this.physics.add.collider(this.ball, this.bananas, (ball, banana) => {
       banana.destroy()
-      this.physics.add.image(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
+      this.physics.add.sprite(banana.x, banana.y, 'bananapeel').setScale(.05).setGravity(0, 400)
       this.scoreText.setText(`Bananas Left: ${this.bananas.getChildren().length}`)
 
     })
