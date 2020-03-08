@@ -15,7 +15,7 @@ Youth Hostelling with Chris Eubank is unlikely to follow...
 
 ![Alan Partridge](https://media.giphy.com/media/PYEGoZXABBMuk/giphy.gif)
 
-## Technologies Used <img src= assets/tennisball.png height=20 width=20 />
+## Technologies Used <img src= assets/fruit_banana.png height=20 width=20 />
 
 - HTML5
 - JavaScript
@@ -23,7 +23,7 @@ Youth Hostelling with Chris Eubank is unlikely to follow...
 - Pixel Art
 - [Phaser 3](https://phaser.io/)
 
-## The Approach <img src= assets/tennisball.png height=20 width=20 />
+## The Approach <img src= assets/banana_peel.png height=20 width=20 />
 
 ### The Phaser Boilerplate
 
@@ -58,7 +58,9 @@ class GameScene extends Phaser.Scene {
 
 Phaser requires a configuration object with certain stipulated keys in order for the game to render.
 
-Here I have added physics to the game, a brilliantly useful tool that Phaser provides. I've also set the width and height of the canvas to match the window.innerWidth and window.innerHeight of the device being used so that the game experience is similar on mobile and desktop
+Here I have added physics to the game, a brilliantly useful tool that Phaser provides out of the box. I've also set the width and height of the canvas to match the `window.innerWidth` and `window.innerHeight` of the device being used so that the game experience is similar on mobile and desktop. 
+
+The scene key has an array containing the three game states. The beginning of the game, prior to the user clicking, the game itself and the game over screen.
 
 ```js
 const config = {
@@ -75,4 +77,28 @@ const config = {
 const game = new Phaser.Game(config)
 
 ``` 
+
+
+### Game Logic
+
+The game logic was fairly straightforward to implement once I had gotten to grips with the variety of basic tools that Phaser provides. 
+
+Below is an example of how straightforward it was to write the logic that moves the player's monkey character. This works for both mouse movement on desktop and swiping interaction on mobile.
+
+```js
+   this.input.on('pointermove', function (pointer) {
+
+      this.monkey.x = Phaser.Math.Clamp(pointer.x, 52, window.innerWidth)
+
+      if (this.ball.getData('onMonkey')) {
+        this.ball.x = this.monkey.x
+      }
+
+    }, this)
+```
+
+
+Gravity, velocity and physics are all provided by Phaser, so I won't pore over the specific logic here. The challenge was mostly understanding the framwork, rather than writing hugely complicated logic. Do take a look at the source code if you're interested. 
+
+
 
