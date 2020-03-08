@@ -109,7 +109,8 @@ class GameScene extends Phaser.Scene {
     const numOfBananas = this.bananas.getChildren().length
     if (numOfBananas <= 0) {
       setTimeout(() => {
-        this.scene.restart()
+        this.scene.stop('GameScene')
+        this.scene.start('EndScene')
       }, 1300)
 
     }

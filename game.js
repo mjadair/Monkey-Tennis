@@ -6,7 +6,7 @@ const config = {
   physics: {
     default: 'arcade'
   },
-  scene: [StartScene, GameScene]
+  scene: [StartScene, GameScene, EndScene]
 }
 
 const game = new Phaser.Game(config)
