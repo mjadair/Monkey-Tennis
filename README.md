@@ -97,7 +97,11 @@ Below is an example of how straightforward it was to write the logic that moves 
       }
 
     }, this)
+    
 ```
+
+<img  src=assets/Screenshots/StartDesktop1.png width=500> <img  src=assets/Screenshots/StartMobile.png height=250> 
+
 
 Below is an example of another Phaser-specific feature, collision detection. Which I used to detect collision between the ball and the bananas, removing the banana that was struck and replacing it with a banana peel that is assigned `setGravity` so that it drops directly downwards.
 
@@ -113,6 +117,9 @@ Below is an example of another Phaser-specific feature, collision detection. Whi
 
 
 Gravity, velocity and physics are all provided by Phaser, so I won't pore over the specific logic for the whoke game here. The challenge was mostly understanding the framework, rather than writing hugely complicated logic. Do take a look at the source code if you're interested. 
+
+
+<img  src=assets/Screenshots/GamplayDesktop3.png width=500> <img  src=assets/Screenshots/GamplayMobile2.png height=250> 
 
 
 ## Challenges <img src= assets/tennisball.png height=20 width=20 />
@@ -144,7 +151,7 @@ I'm going to keep working on this game and adding features when I become more fa
 Sound effects obtained from [Zapsplat](https://www.zapsplat.com)
 
 
-
+<img  src=assets/Screenshots/GameOverDesktop.png> 
 
 
 
